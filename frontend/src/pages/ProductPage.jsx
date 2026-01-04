@@ -1,10 +1,25 @@
+import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom"
-import products from "../products"
 import Rating from "../components/Rating"
+import axios from "axios"
 
 const ProductPage = () => {
+    const [product, setProduct] = useState([])
     const { id: productId } = useParams()
-    const product = products.find((p) => p._id === productId)
+
+    useEffect(() =>{
+        const fetchProduct = async () => {
+            try {
+                const { data } = await axios.get(`/api/products/${productId}`)
+                setProduct(data)
+            
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchProduct()
+    }, [productId])
+    
 
   return <>
         <div className="p-4">
