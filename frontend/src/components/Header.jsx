@@ -1,8 +1,11 @@
-import { Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle, TextInput, Button } from 'flowbite-react'
+import { Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle, TextInput, Button, Badge } from 'flowbite-react'
 import { Link } from 'react-router-dom'
 import { FaShoppingCart, FaUser } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
 
 const Header = () => {
+    const { cartItems } = useSelector((state) => state.cart)  
+
   return (
     <header className='bg-gray-500 shadow relative'>
         <Navbar fluid className='bg-transparent px-0'>
@@ -13,10 +16,21 @@ const Header = () => {
 
                 <NavbarCollapse className='md:static md:block md:w-auto md:bg-transparent md:shadow-none md:p-0 md:border-0 absolute right-6 top-full mt-2 w-44 bg-gray-500/95 backdrop-blur border border-white/10 rounded-xl shadow-xl p-2 z-50 [&>ul]:mt-0'>
                     <NavbarLink as={Link} to='/cart' className='border-0 px-3 py-2 hover:bg-white hover:rounded-xl'>
-                        <span className='flex md:flex-col items-center justify-center gap-3 md:gap-1 text-sm text-gray-200 hover:text-gray-500 md:hover:text-gray-800'>
-                            <FaShoppingCart className='text-lg' />
-                            Cart
-                        </span>
+                        <span className='flex flex-wrap md:items-center gap-1'>
+                            <span className='flex md:flex-col items-center justify-center gap-3 md:gap-1 text-sm text-gray-200 hover:text-gray-500 md:hover:text-gray-800'>
+                                <FaShoppingCart className='text-lg' />
+                                    Cart
+                            </span>
+                            <span>
+                                                                {
+                                        cartItems.length > 0 && (
+                                            <Badge color='success' style={{marginLeft: '7px', marginTop: '4px'}} className='rounded-full'>
+                                                {cartItems.reduce((a, c) => a + c.qty, 0)}
+                                            </Badge>
+                                        )
+                                    }
+                            </span>
+                        </span> 
                     </NavbarLink>
                     <div className='mx-auto my-1 h-px w-1/3 bg-white/30 rounded-full md:hidden'></div>
                     <NavbarLink as={Link} to='/login' className='border-0 px-3 py-2 hover:bg-white hover:rounded-xl'>

@@ -1,14 +1,29 @@
-import { Link, useParams } from "react-router-dom"
+import { useState } from "react"
+import { Link, useParams, useNavigate } from "react-router-dom"
+import { Dropdown, DropdownItem } from "flowbite-react"
+import { useDispatch } from "react-redux"
 import Rating from "../components/Rating"
 import Loader from "../components/Loader"
 import Message from "../components/Message"
 import { useGetProductDetailsQuery } from "../slices/productsApiSlice"
+import { addToCart } from '../slices/cartSlice'
 
 
 const ProductPage = () => {
     const { id: productId } = useParams()
-    
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const [qty, setQty] = useState(1)
+
     const { data: product, isLoading, error } = useGetProductDetailsQuery(productId)
+
+    const addToCartHandler = () => {
+        dispatch(addToCart({ ...product, qty }))
+        navigate('/cart')
+
+    }
 
   return (
     <>
@@ -48,11 +63,30 @@ const ProductPage = () => {
                                 <span>Status:</span>
                                 <span className="font-bold">{product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}</span>
                             </div>
+                            
+                            {product.countInStock > 0 && (
+                                <div className="w-full md:max-w-xs md:justify-self-end shadow-sm">
+                                    <div className="flex items-center justify-between w-full p-4 border border-gray-200 text-gray-500 rounded-sm">
+                                        <span>
+                                            Select qty:
+                                        </span>
+                                        <span>
+                                            <Dropdown label={String(qty)} inline>
+                                                {[...Array(product.countInStock).keys()].map((x) => (
+                                                    <DropdownItem key={x + 1} onClick={() => setQty(x + 1)}>{x + 1}</DropdownItem>
+                                                ))}
+                                            </Dropdown>
+                                        </span>
+                                    </div>
+                                </div>
+                            )}
+
                             <div className="flex items-center justify-between w-full p-4 border border-gray-200 text-gray-500 rounded-sm">
                             <button
-                            className="rounded bg-gray-600 text-white p-3 disabled:opacity-25 w-full shadow-md font-semibold"
-                            type='button'
-                            disabled={product.countInStock === 0}
+                                className="rounded bg-gray-600 text-white p-3 disabled:opacity-25 w-full shadow-md font-semibold"
+                                type='button'
+                                disabled={product.countInStock === 0}
+                                onClick={addToCartHandler}
                             >
                                 Add to Cart 
                             </button>
