@@ -1,10 +1,29 @@
-import { Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle, TextInput, Button, Badge } from 'flowbite-react'
-import { Link } from 'react-router-dom'
+import { Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle, TextInput, Button, Badge, Dropdown, DropdownHeader, DropdownItem, DropdownDivider } from 'flowbite-react'
+import { Link, useNavigate } from 'react-router-dom'
 import { FaShoppingCart, FaUser } from 'react-icons/fa'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useLogoutMutation } from '../slices/usersApiSlice'
+import { logout } from '../slices/authSlice'
 
 const Header = () => {
     const { cartItems } = useSelector((state) => state.cart)  
+    const { userInfo } = useSelector((state) => state.auth)
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const [logoutApiCall] = useLogoutMutation()
+
+    const logoutHandler = async () => {
+        try {
+            await logoutApiCall().unwrap()
+            dispatch(logout())
+            navigate('/login')
+            
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
   return (
     <header className='bg-gray-500 shadow relative'>
@@ -22,7 +41,7 @@ const Header = () => {
                                     Cart
                             </span>
                             <span>
-                                                                {
+                                    {
                                         cartItems.length > 0 && (
                                             <Badge color='success' style={{marginLeft: '7px', marginTop: '4px'}} className='rounded-full'>
                                                 {cartItems.reduce((a, c) => a + c.qty, 0)}
@@ -33,12 +52,35 @@ const Header = () => {
                         </span> 
                     </NavbarLink>
                     <div className='mx-auto my-1 h-px w-1/3 bg-white/30 rounded-full md:hidden'></div>
-                    <NavbarLink as={Link} to='/login' className='border-0 px-3 py-2 hover:bg-white hover:rounded-xl'>
+                    { userInfo ? (
+                        <Dropdown
+                        arrowIcon={false}
+                        inline
+                        id='username'
+                        placement='bottom-end'
+                        renderTrigger={() => (
+                            <button className='min-w-[110px] justify-center inline-flex items-center whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-gray-200 hover:bg-white/20 focus:outline-none focus:ring-0 !mr-0 !me-0'>
+                                {userInfo.name}
+                            </button>
+                        )}
+                        >
+                            <DropdownItem>
+                                <Link to='/profile'>Profile</Link>
+                            </DropdownItem>
+                            <DropdownDivider />
+                            <DropdownItem
+                            onClick={logoutHandler}
+                            >
+                                Log out
+                            </DropdownItem>
+                        </Dropdown>
+                    ) : (<NavbarLink as={Link} to='/login' className='border-0 px-3 py-2 hover:bg-white hover:rounded-xl'>
                         <span className='flex md:flex-col items-center justify-center gap-3 md:gap-1 text-sm text-gray-200 hover:text-gray-500 md:hover:text-gray-800'>
                             <FaUser className='text-lg'/>
                             Sign In
                         </span>
-                    </NavbarLink>
+                    </NavbarLink>) }
+                    
                 </NavbarCollapse>
             </div>
         </Navbar>
