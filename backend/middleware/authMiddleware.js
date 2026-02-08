@@ -4,6 +4,7 @@ import User from '../models/userModel.js'
 
 //protect routes
 const protect = asyncHandler(async (req, res, next) => {
+    console.log('cookies:', req.cookies)
     let token
 
     //Read the JWT from the cookie

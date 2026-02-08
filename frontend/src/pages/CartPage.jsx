@@ -65,15 +65,32 @@ const CartPage = () => {
                     )}
 
                 </div>
-                <div className="w-full md:w-[320px] md:justify-self-end shadow-sm md:sticky md:top-4">
-                    <div className="flex items-center justify-between w-full p-4 border border-gray-200 text-gray-500 rounded-sm">
-                        <div>
-                            <h2 className='font-semibold text-xl'>Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0) }) items</h2>
+                <div className="w-full md:w-[320px] md:justify-self-end shadow-sm md:sticky md:top-4 self-start">
+                    <div className="border border-gray-200 rounded-sm divide-y divide-gray-100 text-gray-500">
+                        <div className="p-4">
+                            <h2 className='text-2xl'>Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0) }) items</h2>
+                        </div>
+                        <div className='flex justify-between p-4'>
+                            <p>Items:</p>
                             ${cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}
                         </div>
-                    </div>
-                    <div className="flex items-center justify-between w-full p-4 border border-gray-200 text-gray-500 rounded-sm">
-                        <button className='rounded bg-gray-600 text-white p-3 disabled:opacity-25 w-full shadow-md font-semibold' disabled={cartItems.length === 0} onClick={checkoutHandler}>Proceed To Checkout</button>
+                        <div className="p-4">
+                            <button
+                                type='submit'
+                                className='
+                                    w-full rounded-sm bg-gray-700 text-white px-4 py-3 font-semibold
+                                    shadow-sm 
+                                    transition 
+                                    hover:bg-gray-800
+                                    active:translate-y-px
+                                    focus:outline-none focus:ring-2 focus-ring-gray-400 focus:ring-offset-2
+                                    disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-600 disabled:shadow-none    
+                                '
+                                disabled={cartItems.length === 0} 
+                                onClick={checkoutHandler}
+                                >Proceed To Checkout
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
