@@ -64,8 +64,8 @@ const Header = () => {
                             </button>
                         )}
                         >
-                            <DropdownItem>
-                                <Link to='/profile'>Profile</Link>
+                            <DropdownItem as={Link} to='/profile'>
+                                Profile
                             </DropdownItem>
                             <DropdownDivider />
                             <DropdownItem
@@ -80,7 +80,31 @@ const Header = () => {
                             Sign In
                         </span>
                     </NavbarLink>) }
-                    
+                    { userInfo && userInfo.isAdmin && (
+                        <Dropdown
+                            arrowIcon={false}
+                            inline
+                            id='admin'
+                             placement='bottom-end'
+                             renderTrigger={() => (
+                                <button className='min-w-[110px] justify-center inline-flex items-center whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-gray-200 hover:bg-white/20 focus:outline-none focus:ring-0 !mr-0 !me-0'>
+                                    Admin
+                                </button>
+                             )}
+                        >
+                            <DropdownItem as={Link} to='/admin/orderlist'>
+                                Orders
+                            </DropdownItem>
+                            <DropdownDivider />
+                            <DropdownItem as={Link} to='/admin/userlist'>
+                                Users
+                            </DropdownItem>
+                            <DropdownDivider />
+                            <DropdownItem as={Link} to='/admin/productlist'>
+                                Products
+                            </DropdownItem>
+                        </Dropdown>
+                    )}
                 </NavbarCollapse>
             </div>
         </Navbar>
