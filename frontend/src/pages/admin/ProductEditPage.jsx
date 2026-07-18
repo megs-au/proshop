@@ -113,6 +113,7 @@ const ProductEditPage = () => {
                             <input id='file-upload' type='file' className="hidden" onChange={uploadFileHandler}></input>
                         </div>
                     </div>
+                    {loadingUpload && <Loader />}
 
                     <label className="block text-sm font-medium text-gray-800 text-sm mt-2">Brand</label>
                     <input 

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { FaShoppingCart, FaUser } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 import { useLogoutMutation } from '../slices/usersApiSlice'
+import SearchBox from './SearchBox'
 import { logout } from '../slices/authSlice'
 
 const Header = () => {
@@ -34,6 +35,7 @@ const Header = () => {
                 <NavbarToggle className='text-gray-200 hover:text-gray-300 hover:bg-white/20 bg-white/10 focus:ring-0' />
 
                 <NavbarCollapse className='md:static md:block md:w-auto md:bg-transparent md:shadow-none md:p-0 md:border-0 absolute right-6 top-full mt-2 w-44 bg-gray-500/95 backdrop-blur border border-white/10 rounded-xl shadow-xl p-2 z-50 [&>ul]:mt-0'>
+                    <SearchBox />
                     <NavbarLink as={Link} to='/cart' className='border-0 px-3 py-2 hover:bg-white hover:rounded-xl'>
                         <span className='flex flex-wrap md:items-center gap-1'>
                             <span className='flex md:flex-col items-center justify-center gap-3 md:gap-1 text-sm text-gray-200 hover:text-gray-500 md:hover:text-gray-800'>
