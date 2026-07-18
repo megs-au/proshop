@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import { Button } from "flowbite-react"
 import Message from "../../components/Message"
 import Loader from "../../components/Loader"
-import FormContainer from "../../components/formContainer"
+import FormContainer from "../../components/FormContainer"
 import { toast } from "react-toastify"
 import { useUpdateUserMutation, useGetUserDetailsQuery } from "../../slices/usersApiSlice"
 
