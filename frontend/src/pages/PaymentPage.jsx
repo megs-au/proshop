@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import FormContainer from '../components/formContainer'
+import FormContainer from '../components/FormContainer'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { Label, Radio } from 'flowbite-react'
 import { savePaymentMethod } from '../slices/cartSlice'
