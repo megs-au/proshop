@@ -1,5 +1,5 @@
 import { useState } from "react"
-import FormContainer from "./formContainer"
+import FormContainer from "./FormContainer"
 import { useParams, useNavigate } from "react-router-dom"
 
 const SearchBox = () => {
