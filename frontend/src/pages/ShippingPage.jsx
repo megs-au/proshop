@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
-import FormContainer from "../components/formContainer"
+import FormContainer from "../components/FormContainer"
 import { saveShippingAddress } from "../slices/cartSlice"
 import CheckoutSteps from "../components/CheckoutSteps"
 

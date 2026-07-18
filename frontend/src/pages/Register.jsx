@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Button } from 'flowbite-react'
 import { useDispatch, useSelector } from 'react-redux'
-import FormContainer from "../components/formContainer"
+import FormContainer from "../components/FormContainer"
 import Loader from "../components/Loader"
 import { useRegisterMutation } from '../slices/usersApiSlice'
 import { setCredentials } from '../slices/authSlice'
