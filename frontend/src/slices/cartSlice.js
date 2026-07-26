@@ -37,10 +37,11 @@ const cartSlice = createSlice({
         clearCartItems: (state, action) => {
             state.cartItems = []
             return updateCart(state)
-        }
+        },
+        resetCart: (state) => (state = initialState)
     }, // functions related to cart (add, remove, etc) - export as actions - state = current state, action = data inside a payload
 })
 
-export const { addToCart, removeFromCart, saveShippingAddress, savePaymentMethod, clearCartItems } = cartSlice.actions //any action neeeds to be exported as a function
+export const { addToCart, removeFromCart, saveShippingAddress, savePaymentMethod, clearCartItems, resetCart } = cartSlice.actions //any action neeeds to be exported as a function
 
 export default cartSlice.reducer
